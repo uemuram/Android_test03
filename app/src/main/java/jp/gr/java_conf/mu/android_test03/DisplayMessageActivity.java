@@ -17,10 +17,6 @@ import java.util.Set;
 
 public class DisplayMessageActivity extends AppCompatActivity {
 
-
-    private BluetoothAdapter mBtAdapter;
-    private TextView mResultView;
-    private String mResult = "";
     // ブロードキャストレシーバの定義
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -28,10 +24,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
             String action = intent.getAction();
             Log.d("mezamashi",action);
             if (BluetoothDevice.ACTION_FOUND.equals(action) || BluetoothDevice.ACTION_NAME_CHANGED.equals(action)){
-        // 見つけたデバイス情報の取得
+               // 見つけたデバイス情報の取得
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                mResult += "Device : " + device.getName() + "/" + device.getAddress() + "\n";
-    //            mResultView.setText(mResult);
+                String mResult = "Device : " + device.getName() + "/" + device.getAddress() + "\n";
                 Log.d("mezamashi",mResult);
             }
         }
@@ -60,19 +55,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
             message += " OK";
         }
 
-//        // ペアリング済みのデバイスを検索
-//        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-//        Log.d("mezamashi", String.valueOf(pairedDevices.size()));
-//        if (pairedDevices.size() > 1) {
-//            for (BluetoothDevice device : pairedDevices) {
-//                Log.d("mezamashi",device.getName());
-//                Log.d("mezamashi",device.getAddress());
-//            }
-//        }
-
         // インテントフィルタの作成
         IntentFilter filter = new IntentFilter();
-
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
@@ -81,21 +65,13 @@ public class DisplayMessageActivity extends AppCompatActivity {
         // ブロードキャストレシーバの登録
         registerReceiver(mReceiver, filter);
 
-        Log.d("mezamashi","a");
-
         // BluetoothAdapterのインスタンス取得
-        Log.d("mezamashi","b");
         // Bluetooth有効
         if (!bluetoothAdapter.isEnabled()) {
-            Log.d("mezamashi","c");
             bluetoothAdapter.enable();
-            Log.d("mezamashi","d");
         }
         // 周辺デバイスの検索開始
-        Log.d("mezamashi","e");
         bluetoothAdapter.startDiscovery();
-        Log.d("mezamashi","f");
-        Log.d("mezamashi","g");
 
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView);
