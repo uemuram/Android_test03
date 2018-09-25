@@ -26,13 +26,13 @@ public class DisplayMessageActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            Log.d("bt",action);
+            Log.d("mezamashi",action);
             if (BluetoothDevice.ACTION_FOUND.equals(action) || BluetoothDevice.ACTION_NAME_CHANGED.equals(action)){
         // 見つけたデバイス情報の取得
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 mResult += "Device : " + device.getName() + "/" + device.getAddress() + "\n";
     //            mResultView.setText(mResult);
-                Log.d("bt",mResult);
+                Log.d("mezamashi",mResult);
             }
         }
     };
@@ -51,22 +51,22 @@ public class DisplayMessageActivity extends AppCompatActivity {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(bluetoothAdapter == null){
             //Bluetooth非対応端末の場合の処理
-            Log.d("bt","Bluetoothがサポートされてません。");
+            Log.d("mezamashi","Bluetoothがサポートされてません。");
             message += " NG";
             finish();
         }else{
             //Bluetooth対応端末の場合の処理
-            Log.d("bt","Bluetoothがサポートされてます。");
+            Log.d("mezamashi","Bluetoothがサポートされてます。");
             message += " OK";
         }
 
 //        // ペアリング済みのデバイスを検索
 //        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-//        Log.d("bt", String.valueOf(pairedDevices.size()));
+//        Log.d("mezamashi", String.valueOf(pairedDevices.size()));
 //        if (pairedDevices.size() > 1) {
 //            for (BluetoothDevice device : pairedDevices) {
-//                Log.d("bt",device.getName());
-//                Log.d("bt",device.getAddress());
+//                Log.d("mezamashi",device.getName());
+//                Log.d("mezamashi",device.getAddress());
 //            }
 //        }
 
@@ -81,21 +81,21 @@ public class DisplayMessageActivity extends AppCompatActivity {
         // ブロードキャストレシーバの登録
         registerReceiver(mReceiver, filter);
 
-        Log.d("bt","a");
+        Log.d("mezamashi","a");
 
         // BluetoothAdapterのインスタンス取得
-        Log.d("bt","b");
+        Log.d("mezamashi","b");
         // Bluetooth有効
         if (!bluetoothAdapter.isEnabled()) {
-            Log.d("bt","c");
+            Log.d("mezamashi","c");
             bluetoothAdapter.enable();
-            Log.d("bt","d");
+            Log.d("mezamashi","d");
         }
         // 周辺デバイスの検索開始
-        Log.d("bt","e");
+        Log.d("mezamashi","e");
         bluetoothAdapter.startDiscovery();
-        Log.d("bt","f");
-        Log.d("bt","g");
+        Log.d("mezamashi","f");
+        Log.d("mezamashi","g");
 
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView);
